@@ -32,3 +32,4 @@ Currently we don't support authentication with Facebook, Google or Sign-Up optio
 
 ## Useful Links
 * [how data is designed in Firebase](https://gist.github.com/jayahariv/afe7bad2368bf831ff22f658124fa0d5)
+* [track the progress and history till now](https://github.com/jayahariv/udacity/tree/master/CleanIndia)
