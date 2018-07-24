@@ -34,8 +34,8 @@ Currently we don't support authentication with Facebook, Google or Sign-Up optio
 !<img width="160" alt="login" src="https://user-images.githubusercontent.com/10448770/43119379-01faa6c8-8ecb-11e8-9fc4-15a707fcb0bd.png">
 <img width="160" alt="add_toilet_by_force_touch" src="https://user-images.githubusercontent.com/10448770/43119380-0211df3c-8ecb-11e8-9846-ec8818cc35f5.png">
 <img width="160" alt="address_search" src="https://user-images.githubusercontent.com/10448770/43119381-026198a6-8ecb-11e8-865e-515cef25a1cf.png">
-<img width="160" alt="toilet_list" src="https://user-images.githubusercontent.com/10448770/43119382-02a3f002-8ecb-11e8-8675-e654c7084cd6.png">
 <img width="160" alt="home" src="https://user-images.githubusercontent.com/10448770/43119384-02d29466-8ecb-11e8-8e88-fff132cf572a.png">
+<img width="160" alt="list" src="https://user-images.githubusercontent.com/10448770/43141191-2eeb2790-8f0a-11e8-835b-c6e526807666.png">
 
 
 ## Useful Links
