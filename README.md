@@ -30,6 +30,15 @@ Currently we don't support authentication with Facebook, Google or Sign-Up optio
 4. Create Credentials and copy the API Key. 
 5. Paste the API Key copied inside the Clean-India ->  model -> HttpConstants.swift -> API_KEY. 
 
+## Screenshots
+<img width="160" alt="login" src="https://user-images.githubusercontent.com/10448770/43119379-01faa6c8-8ecb-11e8-9fc4-15a707fcb0bd.png">
+<img width="160" alt="add_toilet_by_force_touch" src="https://user-images.githubusercontent.com/10448770/43119380-0211df3c-8ecb-11e8-9846-ec8818cc35f5.png">
+<img width="160" alt="address_search" src="https://user-images.githubusercontent.com/10448770/43119381-026198a6-8ecb-11e8-865e-515cef25a1cf.png">
+<img width="160" alt="toilet_list" src="https://user-images.githubusercontent.com/10448770/43119382-02a3f002-8ecb-11e8-8675-e654c7084cd6.png">
+<img width="160" alt="home" src="https://user-images.githubusercontent.com/10448770/43119384-02d29466-8ecb-11e8-8e88-fff132cf572a.png">
+
+
 ## Useful Links
 * [how data is designed in Firebase](https://gist.github.com/jayahariv/afe7bad2368bf831ff22f658124fa0d5)
 * [track the progress and history till now](https://github.com/jayahariv/udacity/tree/master/CleanIndia)
+
