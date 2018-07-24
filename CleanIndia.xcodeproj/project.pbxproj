@@ -25,6 +25,7 @@
 		08BD2C492100F22700E2A1E6 /* Toilet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BD2C482100F22700E2A1E6 /* Toilet.swift */; };
 		08BD2C4B2100F46F00E2A1E6 /* Toilets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BD2C4A2100F46F00E2A1E6 /* Toilets.swift */; };
 		08BD2C4F2106E47200E2A1E6 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BD2C4E2106E47200E2A1E6 /* Store.swift */; };
+		08BD2C51210763E600E2A1E6 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BD2C50210763E600E2A1E6 /* Overlay.swift */; };
 		F3C4CBC0A23F656C8FAB1AF0 /* Pods_CleanIndia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FB85B22C7E8A3A263AAA2DB /* Pods_CleanIndia.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		08BD2C482100F22700E2A1E6 /* Toilet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toilet.swift; sourceTree = "<group>"; };
 		08BD2C4A2100F46F00E2A1E6 /* Toilets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toilets.swift; sourceTree = "<group>"; };
 		08BD2C4E2106E47200E2A1E6 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		08BD2C50210763E600E2A1E6 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		161F08BE16C44A6CB6D74589 /* Pods-CleanIndia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CleanIndia.release.xcconfig"; path = "Pods/Target Support Files/Pods-CleanIndia/Pods-CleanIndia.release.xcconfig"; sourceTree = "<group>"; };
 		7FB85B22C7E8A3A263AAA2DB /* Pods_CleanIndia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CleanIndia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CC1FE38A5E34FA078425DFF /* Pods-CleanIndia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CleanIndia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CleanIndia/Pods-CleanIndia.debug.xcconfig"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			children = (
 				08BD2C3420F7131600E2A1E6 /* Constants.swift */,
 				08BD2C4E2106E47200E2A1E6 /* Store.swift */,
+				08BD2C50210763E600E2A1E6 /* Overlay.swift */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				08BD2C3520F7131600E2A1E6 /* Constants.swift in Sources */,
 				08ABDBFF20EBD7EE00343AAA /* MapViewController.swift in Sources */,
 				08ABDC1F20EF1BA300343AAA /* AddToiletViewController.swift in Sources */,
+				08BD2C51210763E600E2A1E6 /* Overlay.swift in Sources */,
 				08ABDBFD20EBD7EE00343AAA /* AppDelegate.swift in Sources */,
 				08BD2C492100F22700E2A1E6 /* Toilet.swift in Sources */,
 				08ABDC2720EF254D00343AAA /* CIAddressTypeahead.swift in Sources */,

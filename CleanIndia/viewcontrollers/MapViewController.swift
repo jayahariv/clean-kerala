@@ -177,6 +177,7 @@ private extension MapViewController {
         let allAnnotations = mapView.annotations
         mapView.removeAnnotations(allAnnotations)
         mapView.addAnnotations(toilets)
+        Overlay.shared.remove()
     }
     
     /**
@@ -236,6 +237,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        Overlay.shared.show()
         fetchToiletsFromGoogle(mapView.region.center.latitude,
                                longitude: mapView.region.center.longitude,
                                delta: mapView.region.span.latitudeDelta)

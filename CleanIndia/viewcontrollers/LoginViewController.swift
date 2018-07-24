@@ -67,12 +67,14 @@ final class LoginViewController: UIViewController {
     }
     
     @IBAction func onLogout(_ sender: UIButton) {
+        Overlay.shared.show()
         do {
             try Auth.auth().signOut()
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
         
+        Overlay.shared.remove()
         presentAlert(C.Alert.successLogoutMessage, completion: { [unowned self] (_) in
             self.dismiss(animated: true, completion: nil)
         })
@@ -112,8 +114,11 @@ private extension LoginViewController {
         - password: self descriptive
      */
     func login(_ email: String, password: String) {
+        Overlay.shared.show()
         Auth.auth().signIn(withEmail: email, password: password) { [unowned self] (result, error) in
+            Overlay.shared.remove()
             guard error == nil else {
+                self.presentAlert((error!.localizedDescription), completion: nil)
                 return
             }
             
@@ -135,7 +140,7 @@ private extension LoginViewController {
         return nil
     }
     
-    func presentAlert(_ message: String, completion: @escaping ((UIAlertAction) -> Swift.Void)) {
+    func presentAlert(_ message: String, completion: ((UIAlertAction) -> Swift.Void)? = nil) {
         let alertvc = UIAlertController(title: C.Alert.title,
                                         message: message,
                                         preferredStyle: .alert)

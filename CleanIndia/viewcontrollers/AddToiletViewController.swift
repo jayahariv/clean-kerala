@@ -227,12 +227,14 @@ private extension AddToiletViewController {
             return
         }
         
+        Overlay.shared.show()
         onSave(name,
                rating: rate,
                address: address,
                coordinate: GeoPoint(latitude: coordinate.latitude,
                                     longitude: coordinate.longitude)
         ) {[unowned self] in
+            Overlay.shared.remove()
             self.dismiss(animated: true, completion: nil)
         }
     }
