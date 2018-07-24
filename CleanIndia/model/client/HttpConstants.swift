@@ -13,7 +13,7 @@ import Foundation
 struct HttpConstants {
     static let baseURL = "https://maps.googleapis.com/maps/api/"
     static let outputFormat = "json"
-    static let API_KEY = "API_KEY"
+    static let API_KEY = "API_KEY" // PASTE YOUR API KEY
     
     struct TextSearch {
         static let method = "place/textsearch/"

@@ -49,10 +49,6 @@ final class MapViewController: UIViewController {
         
         super.viewDidLoad()
         
-        fetchToiletsFromGoogle(Constants.Kerala.FullViewCoordinates.latitude,
-                               longitude: Constants.Kerala.FullViewCoordinates.longitude,
-                               delta: Constants.Kerala.fullRadius)
-        
         configureUI()
     }
     
@@ -107,6 +103,7 @@ private extension MapViewController {
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
+                
                 for document in querySnapshot!.documents {
                     let data = document.data()
                     
