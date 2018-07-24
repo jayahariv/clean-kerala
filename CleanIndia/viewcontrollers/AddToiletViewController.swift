@@ -24,11 +24,11 @@ final class AddToiletViewController: UIViewController {
     @IBOutlet weak private var addressTypeahead: CIAddressTypeahead!
     
     /// ratings buttons
-    @IBOutlet weak private var rate1: UIButton!
-    @IBOutlet weak private var rate2: UIButton!
-    @IBOutlet weak private var rate3: UIButton!
-    @IBOutlet weak private var rate4: UIButton!
-    @IBOutlet weak private var rate5: UIButton!
+    @IBOutlet weak private var rateVeryPoor: UIButton!
+    @IBOutlet weak private var ratePoor: UIButton!
+    @IBOutlet weak private var rateMedium: UIButton!
+    @IBOutlet weak private var rateBetter: UIButton!
+    @IBOutlet weak private var rateBest: UIButton!
     
     private var rate: UInt8 = 5
     private let db = (UIApplication.shared.delegate as! AppDelegate).db
@@ -38,11 +38,11 @@ final class AddToiletViewController: UIViewController {
     
     // file constants
     private struct C {
-        static let star1Comment = "Never coming back again."
-        static let star2Comment = "Managed it, but not coming back."
-        static let star3Comment = "Its okay, but they should have cleaned it."
-        static let star4Comment = "Its was fine, thank God."
-        static let star5Comment = "Thank God, it was Heaven."
+        static let starVeryPoorComment = "Never coming back again."
+        static let starPoorComment = "Managed it, but not coming back."
+        static let starMediumComment = "Its okay, but they should have cleaned it."
+        static let starBetterComment = "Its was fine, thank God."
+        static let starBestComment = "Thank God, it was Heaven."
         
         struct Alert {
             static let title = "Add Toilet"
@@ -79,40 +79,40 @@ final class AddToiletViewController: UIViewController {
         
         switch sender.tag {
         case 1:
-            rate1.isSelected = true
-            rate2.isSelected = false
-            rate3.isSelected = false
-            rate4.isSelected = false
-            rate5.isSelected = false
-            reviewDescription.text = C.star1Comment
+            rateVeryPoor.isSelected = true
+            ratePoor.isSelected = false
+            rateMedium.isSelected = false
+            rateBetter.isSelected = false
+            rateBest.isSelected = false
+            reviewDescription.text = C.starVeryPoorComment
         case 2:
-            rate1.isSelected = true
-            rate2.isSelected = true
-            rate3.isSelected = false
-            rate4.isSelected = false
-            rate5.isSelected = false
-            reviewDescription.text = C.star2Comment
+            rateVeryPoor.isSelected = true
+            ratePoor.isSelected = true
+            rateMedium.isSelected = false
+            rateBetter.isSelected = false
+            rateBest.isSelected = false
+            reviewDescription.text = C.starPoorComment
         case 3:
-            rate1.isSelected = true
-            rate2.isSelected = true
-            rate3.isSelected = true
-            rate4.isSelected = false
-            rate5.isSelected = false
-            reviewDescription.text = C.star3Comment
+            rateVeryPoor.isSelected = true
+            ratePoor.isSelected = true
+            rateMedium.isSelected = true
+            rateBetter.isSelected = false
+            rateBest.isSelected = false
+            reviewDescription.text = C.starMediumComment
         case 4:
-            rate1.isSelected = true
-            rate2.isSelected = true
-            rate3.isSelected = true
-            rate4.isSelected = true
-            rate5.isSelected = false
-            reviewDescription.text = C.star4Comment
+            rateVeryPoor.isSelected = true
+            ratePoor.isSelected = true
+            rateMedium.isSelected = true
+            rateBetter.isSelected = true
+            rateBest.isSelected = false
+            reviewDescription.text = C.starBetterComment
         case 5:
-            rate1.isSelected = true
-            rate2.isSelected = true
-            rate3.isSelected = true
-            rate4.isSelected = true
-            rate5.isSelected = true
-            reviewDescription.text = C.star5Comment
+            rateVeryPoor.isSelected = true
+            ratePoor.isSelected = true
+            rateMedium.isSelected = true
+            rateBetter.isSelected = true
+            rateBest.isSelected = true
+            reviewDescription.text = C.starBestComment
         default:
             print("Review Selection Invalid")
         }

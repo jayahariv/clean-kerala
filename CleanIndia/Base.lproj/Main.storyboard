@@ -522,11 +522,11 @@
                         <outlet property="addressTypeahead" destination="reH-Yh-1p3" id="uzw-Ky-oHw"/>
                         <outlet property="mapView" destination="77h-eM-aUI" id="lrf-e4-sTo"/>
                         <outlet property="name" destination="Znk-YF-kwl" id="cR8-sf-KUr"/>
-                        <outlet property="rate1" destination="Tyu-yv-cgx" id="hKX-fx-Z0g"/>
-                        <outlet property="rate2" destination="Rpg-w2-uGR" id="7ZP-MV-kT8"/>
-                        <outlet property="rate3" destination="JgC-Cc-aIW" id="qVf-Zc-g1r"/>
-                        <outlet property="rate4" destination="IWi-SS-jef" id="gMq-Kf-lWb"/>
-                        <outlet property="rate5" destination="8jE-QT-cQs" id="nlI-Jo-dyz"/>
+                        <outlet property="rateBest" destination="8jE-QT-cQs" id="9wT-M6-ZUW"/>
+                        <outlet property="rateBetter" destination="IWi-SS-jef" id="Qn3-wV-FwU"/>
+                        <outlet property="rateMedium" destination="JgC-Cc-aIW" id="FQb-w0-QhS"/>
+                        <outlet property="ratePoor" destination="Rpg-w2-uGR" id="5zu-sH-BbX"/>
+                        <outlet property="rateVeryPoor" destination="Tyu-yv-cgx" id="Wdv-aa-oL7"/>
                         <outlet property="reviewDescription" destination="Blp-hP-Tl2" id="kAz-iH-C1P"/>
                     </connections>
                 </viewController>
