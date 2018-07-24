@@ -11,6 +11,7 @@ this class will manage all tasks related with adding the toilet.
 import UIKit
 import MapKit
 import Firebase
+import Reachability
 
 final class AddToiletViewController: UIViewController {
     
@@ -33,6 +34,7 @@ final class AddToiletViewController: UIViewController {
     private let db = (UIApplication.shared.delegate as! AppDelegate).db
     private var placemark: MKPlacemark?
     private let locationManager = CLLocationManager()
+    private let reachability = Reachability()!
     
     // file constants
     private struct C {
@@ -41,6 +43,12 @@ final class AddToiletViewController: UIViewController {
         static let star3Comment = "Its okay, but they should have cleaned it."
         static let star4Comment = "Its was fine, thank God."
         static let star5Comment = "Thank God, it was Heaven."
+        
+        struct Alert {
+            static let title = "Add Toilet"
+            static let buttonTitle = "okay"
+            static let noNetworkMessage = "No Network connecticity"
+        }
     }
 
     
@@ -158,7 +166,13 @@ private extension AddToiletViewController {
     }
     
     @objc func onLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        
         if gestureRecognizer.state == UIGestureRecognizerState.began {
+            guard reachability.connection != .none else {
+                presentAlert(C.Alert.noNetworkMessage, completion: nil)
+                return
+            }
+            
             let touchPoint = gestureRecognizer.location(in: mapView)
             let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
             let toilet = Toilet()
@@ -212,6 +226,12 @@ private extension AddToiletViewController {
     }
     
     func onAdd() {
+        
+        guard reachability.connection != .none else {
+            presentAlert(C.Alert.noNetworkMessage, completion: nil)
+            return
+        }
+        
         // GUARD: valid name
         guard let name = self.name.text else {
             return
@@ -266,6 +286,17 @@ private extension AddToiletViewController {
                 completion()
             }
         }
+    }
+    
+    func presentAlert(_ message: String, completion: ((UIAlertAction) -> Swift.Void)? = nil) {
+        let alertvc = UIAlertController(title: C.Alert.title,
+                                        message: message,
+                                        preferredStyle: .alert)
+        let okay = UIAlertAction(title: C.Alert.buttonTitle,
+                                 style: .default,
+                                 handler: completion)
+        alertvc.addAction(okay)
+        self.present(alertvc, animated: true, completion: nil)
     }
 }
 

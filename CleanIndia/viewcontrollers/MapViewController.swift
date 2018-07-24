@@ -15,6 +15,7 @@ this class will show the map with toilet annotations. Also includes the capabili
 import UIKit
 import MapKit
 import Firebase
+import Reachability
 
 final class MapViewController: UIViewController {
     
@@ -28,14 +29,17 @@ final class MapViewController: UIViewController {
     private var db: Firestore!
     private var toilets = [Toilet]()
     private let locationManager = CLLocationManager()
+    private let reachability = Reachability()!
+    private var isFetching: Bool = false // this will be true, if the fetching is taking place
     
     // MARK: File constants
     private struct C {
         static let segueToAddToilets = "segueToAddToilet"
         struct AddToiletAlert {
-            static let title = "Authenticate"
+            static let title = "Clean Kerala"
             static let message = "Please login before adding any toilets."
             static let buttonTitle = "Okay"
+            static let noNetworkMessage = "No Network connectivity"
         }
         static let toiletListIdentifier = "ToiletListViewController"
         static let animationIdentifier = "ToiletListViewControllerFlip"
@@ -54,6 +58,8 @@ final class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        loadToilets()
         
         navigationController?.isNavigationBarHidden = true
     }
@@ -78,14 +84,7 @@ final class MapViewController: UIViewController {
         if Auth.auth().currentUser != nil {
             performSegue(withIdentifier: C.segueToAddToilets, sender: nil)
         } else {
-            let alertvc = UIAlertController(title: C.AddToiletAlert.title,
-                                            message: C.AddToiletAlert.message,
-                                            preferredStyle: .alert)
-            let okay = UIAlertAction(title: C.AddToiletAlert.buttonTitle,
-                                     style: .default,
-                                     handler: nil)
-            alertvc.addAction(okay)
-            present(alertvc, animated: true, completion: nil)
+            self.presentAlert(C.AddToiletAlert.message, completion: nil)
         }
     }
 }
@@ -103,7 +102,8 @@ private extension MapViewController {
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                
+                print(self.toilets.count)
+                var toilets = [Toilet]()
                 for document in querySnapshot!.documents {
                     let data = document.data()
                     
@@ -119,10 +119,10 @@ private extension MapViewController {
                     toilet.name = data[Constants.Firestore.Keys.NAME] as? String
                     toilet.geometry = geometry
                     toilet.rating = data[Constants.Firestore.Keys.RATING] as? Int
-                    
-                    self.toilets.append(toilet)
+                    toilets.append(toilet)
                 }
-                
+                self.toilets += toilets
+
                 DispatchQueue.main.async { [unowned self] in
                     self.updateMap()
                 }
@@ -136,7 +136,11 @@ private extension MapViewController {
     func fetchToiletsFromGoogle(_ latitude: Double, longitude: Double, delta: Double) {
         HttpClient.shared.getToilets(latitude: latitude, longitude: longitude, radius: delta) { [unowned self] (results: [Toilet], error: Error?) in
             
+            print("inside the google resopnse: \(self.toilets)")
+            
             self.toilets = results
+            
+            print("inside the google resopnse: \(self.toilets)")
             
             self.fetchFirebaseToilets()
         }
@@ -178,6 +182,7 @@ private extension MapViewController {
         mapView.removeAnnotations(allAnnotations)
         mapView.addAnnotations(toilets)
         Overlay.shared.remove()
+        isFetching = false
     }
     
     /**
@@ -191,6 +196,17 @@ private extension MapViewController {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
+    }
+    
+    func presentAlert(_ message: String, completion: ((UIAlertAction) -> Swift.Void)? = nil) {
+        let alertvc = UIAlertController(title: C.AddToiletAlert.title,
+                                        message: message,
+                                        preferredStyle: .alert)
+        let okay = UIAlertAction(title: C.AddToiletAlert.buttonTitle,
+                                 style: .default,
+                                 handler: completion)
+        alertvc.addAction(okay)
+        self.present(alertvc, animated: true, completion: nil)
     }
 }
 
@@ -237,7 +253,23 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        loadToilets()
+    }
+    
+    func loadToilets() {
+        
+        guard reachability.connection != .none else {
+            presentAlert(C.AddToiletAlert.noNetworkMessage, completion: nil)
+            return
+        }
+        
+        guard isFetching == false else {
+            return
+        }
+        isFetching = true
+        
         Overlay.shared.show()
+        toilets = []
         fetchToiletsFromGoogle(mapView.region.center.latitude,
                                longitude: mapView.region.center.longitude,
                                delta: mapView.region.span.latitudeDelta)

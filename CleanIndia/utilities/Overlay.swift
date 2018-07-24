@@ -18,27 +18,39 @@ final class Overlay: NSObject {
     private var view: UIView?
     
     public func show() {
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        if view == nil, let windowFrame = delegate.window?.frame {
-            view = UIView(frame: windowFrame)
-            delegate.window?.addSubview(view!)
-            
-            let darkBackground = UIView(frame: windowFrame)
-            darkBackground.backgroundColor = UIColor.black
-            darkBackground.alpha = 0.25
-            view!.addSubview(darkBackground)
-            
-            let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-            view?.addSubview(activity)
-            activity.center = view!.center
-            activity.startAnimating()
+        
+        guard view == nil else {
+            return
         }
+        
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        if let windowFrame = delegate.window?.frame {
+            
+            DispatchQueue.main.async { [unowned self] in
+                self.view = UIView(frame: windowFrame)
+                
+                let darkBackground = UIView(frame: windowFrame)
+                darkBackground.backgroundColor = UIColor.black
+                darkBackground.alpha = 0.25
+                self.view!.addSubview(darkBackground)
+                
+                let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+                self.view?.addSubview(activity)
+                activity.center = self.view!.center
+                activity.startAnimating()
+                delegate.window?.addSubview(self.view!)
+            }
+        }
+        
     }
     
     public func remove() {
-        for subview: UIView in view?.subviews ?? [] {
-            subview.removeFromSuperview()
+        DispatchQueue.main.async { [unowned self] in
+            for subview: UIView in self.view?.subviews ?? [] {
+                subview.removeFromSuperview()
+            }
+            self.view?.removeFromSuperview()
+            self.view = nil
         }
-        view?.removeFromSuperview()
     }
 }

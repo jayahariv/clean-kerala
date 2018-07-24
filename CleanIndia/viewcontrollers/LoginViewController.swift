@@ -11,6 +11,7 @@ Abstract:
 
 import UIKit
 import FirebaseAuth
+import Reachability
 
 final class LoginViewController: UIViewController {
     
@@ -21,12 +22,14 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak private var password: UITextField!
     @IBOutlet weak private var loginButton: UIButton!
     @IBOutlet weak private var logoutButton: UIButton!
+    private let reachability = Reachability()!
     private struct C {
         struct Alert {
             static let title = "Authentication"
             static let successLoginMessage = "You have successfully logged in."
             static let successLogoutMessage = "You have successfully logged out."
             static let okayTitle = "Okay"
+            static let noNetworkMessage = "No Network connectivity"
         }
         static let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
     }
@@ -60,6 +63,11 @@ final class LoginViewController: UIViewController {
         
         // GUARD: checks for valid password
         guard let pass = password.text else {
+            return
+        }
+        
+        guard reachability.connection != .none else {
+            presentAlert(C.Alert.noNetworkMessage, completion: nil)
             return
         }
         
