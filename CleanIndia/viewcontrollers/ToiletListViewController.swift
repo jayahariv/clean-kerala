@@ -25,12 +25,6 @@ final class ToiletListViewController: UIViewController {
         static let cell = "toiletCell"
     }
     
-    // MARK: View Lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     // MARK: Button Actions
     
     @IBAction func onMap(_ sender: UIButton) {

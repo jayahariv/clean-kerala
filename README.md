@@ -10,6 +10,8 @@ Its an app to display toilets near the user. Users can also add a toilet with a 
 ### Known Issue
     * Not restricted to search any address outside Kerala.
     * Not restricted to zoom out and scroll to other places in map. 
+    * App supports only Portrait orientation. Current use cases are best done in portrait orientation.  
+    * On clicking the annotation, open up the google map to naivgate to the location. 
     
 ## Usage
 If you want to run the app follow the below steps.

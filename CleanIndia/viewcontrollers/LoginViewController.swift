@@ -32,6 +32,8 @@ final class LoginViewController: UIViewController {
             static let noNetworkMessage = "No Network connectivity"
         }
         static let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        static let validEmailErrorMessage = "Please enter a valid email address"
+        static let validPasswordErrorMessage = "Please enter a valid password"
     }
     
     // MARK: View Lifecycle
@@ -58,11 +60,13 @@ final class LoginViewController: UIViewController {
         
         // GUARD: checks for valid email address
         guard let emailString = emailAddress.text, let email = validateEmailAddress(emailString) else {
+            presentAlert(C.validEmailErrorMessage, completion: nil)
             return
         }
         
         // GUARD: checks for valid password
-        guard let pass = password.text else {
+        guard let pass = password.text, pass.count > 0 else {
+            presentAlert(C.validPasswordErrorMessage, completion: nil)
             return
         }
         
@@ -156,6 +160,6 @@ private extension LoginViewController {
                                  style: .default,
                                  handler: completion)
         alertvc.addAction(okay)
-        self.present(alertvc, animated: true, completion: nil)
+        present(alertvc, animated: true, completion: nil)
     }
 }

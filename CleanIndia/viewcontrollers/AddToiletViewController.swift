@@ -40,7 +40,7 @@ final class AddToiletViewController: UIViewController {
     private struct C {
         static let starVeryPoorComment = "Never coming back again."
         static let starPoorComment = "Managed it, but not coming back."
-        static let starMediumComment = "Its okay, but they should have cleaned it."
+        static let starMediumComment = "If they clean it, will come back."
         static let starBetterComment = "Its was fine, thank God."
         static let starBestComment = "Thank God, it was Heaven."
         
@@ -49,6 +49,9 @@ final class AddToiletViewController: UIViewController {
             static let buttonTitle = "okay"
             static let noNetworkMessage = "No Network connecticity"
         }
+        
+        static let validNameError = "Please enter a valid name for the location"
+        static let validLocationError = "Invalid location selected"
     }
 
     
@@ -234,16 +237,19 @@ private extension AddToiletViewController {
         
         // GUARD: valid name
         guard let name = self.name.text else {
+            presentAlert(C.validNameError, completion: nil)
             return
         }
         
         // GUARD: valid coordinate
         guard let coordinate = placemark?.coordinate else {
+            presentAlert(C.validLocationError, completion: nil)
             return
         }
         
         // GUARD: valid address
         guard let address = placemark?.title else {
+            presentAlert(C.validLocationError, completion: nil)
             return
         }
         
