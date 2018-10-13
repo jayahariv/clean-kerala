@@ -31,6 +31,7 @@ final class MapViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private let reachability = Reachability()!
     private var isFetching: Bool = false // this will be true, if the fetching is taking place
+    private var isLocationUpdated = false
     
     // MARK: File constants
     private struct C {
@@ -243,11 +244,17 @@ extension MapViewController: MKMapViewDelegate {
             dequeuedView.annotation = annotation
             view = dequeuedView
         } else {
+            let directionButton = UIButton(type: .custom)
+            directionButton.setImage(
+                UIImage(named: "direction"),
+                for: .normal
+            )
+            directionButton.sizeToFit()
             
             view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: C.mapAnnotationIdentifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
-            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            view.rightCalloutAccessoryView = directionButton
         }
         return view
     }
@@ -274,12 +281,53 @@ extension MapViewController: MKMapViewDelegate {
                                longitude: mapView.region.center.longitude,
                                delta: mapView.region.span.latitudeDelta)
     }
+
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView, let annotation = view.annotation as? Toilet {
+        
+            let application = UIApplication.shared
+
+            let lat = annotation.coordinate.latitude
+            let long = annotation.coordinate.longitude
+
+            let currentLocation = mapView.userLocation
+            let userLat = currentLocation.coordinate.latitude
+            let userLong = currentLocation.coordinate.longitude
+
+            let toiletAddress = "\(String(describing: lat)),\(String(describing: long))"
+
+            var userAddress = ""
+            if isLocationUpdated {
+                userAddress = "\(String(describing: userLat)),\(String(describing: userLong))"
+            }
+
+            let googleMapBaseUrl = "comgooglemaps://"
+            let googleBaseUrl = "https://www.google.co.in/maps/dir/"
+            let pathString = "?saddr=\(userAddress)&daddr=\(toiletAddress)".trimmingCharacters(in: .whitespaces)
+
+            let directionString: String
+
+            if let url = URL(string: googleMapBaseUrl), application.canOpenURL(url) {
+                directionString = googleMapBaseUrl + pathString
+            } else {
+                directionString = googleBaseUrl + pathString
+            }
+            openDirectionsOnGoogleMaps(application: application, directionString: directionString)
+        }
+
+    }
+
+    private func openDirectionsOnGoogleMaps(application: UIApplication, directionString: String) {
+        guard let url = URL(string: directionString) else { return }
+        application.open(url, options: [:], completionHandler: nil)
+    }
 }
 
 // MARK: AddToiletViewController -> CLLocationManagerDelegate
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        isLocationUpdated = true
         locationManager.stopUpdatingLocation()
         if let location = manager.location {
             let annotation = MKPointAnnotation()
